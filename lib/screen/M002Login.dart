@@ -6,7 +6,7 @@ import 'package:khoi_nghiep/screen/M003ForgotPassword.dart';
 import 'package:khoi_nghiep/screen/M004SignUp.dart';
 import 'package:khoi_nghiep/ultils/GetColors.dart';
 
-//TODO Cần phải hỏi lại cách pop ở phần này
+
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -140,7 +140,7 @@ class _LoginState extends State<Login> {
                             child: Ink(
                               padding: const EdgeInsets.all(20),
                               decoration: BoxDecoration(
-                                color: HexColor("##4267B2"),
+                                color: HexColor("#4267B2"),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(5)),
                               ),

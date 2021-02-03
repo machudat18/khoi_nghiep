@@ -10,37 +10,38 @@ Route<dynamic> generateRouteUnAuth(RouteSettings settings) {
       return MaterialPageRoute(
         builder: (context) => Login(),
       );
+      break;
     case ForgotPasswordRoute:
       return MaterialPageRoute(
         builder: (context) => ForgotPassword(),
       );
+      break;
     case SignUpRoute:
       return MaterialPageRoute(
         builder: (context) => ForgotPassword(),
       );
+      break;
     default :
       return null;
+      break;
   }
 }
 
 Route<dynamic> generateRouteM003(RouteSettings settings,VoidCallback popCurrent) {
     switch (settings.name) {
-      case '/':
-        return MaterialPageRoute(
-            builder: (context) =>
-                StepOneContainer(popCurrent: popCurrent));
-        break;
-      case '/step1':
-        return MaterialPageRoute(
-            builder: (context) => StepTwoContainer());
-        break;
-      case '/step2':
-        return MaterialPageRoute(
-            builder: (context) =>
-                StepThreeContainer(popCurrent: popCurrent));
-
-        break;
-      default:
-        break;
+      case ForgotPassword1:
+      return MaterialPageRoute(
+          builder: (context) => StepOneContainer(popCurrent: popCurrent));
+      break;
+    case ForgotPassword2:
+      return MaterialPageRoute(builder: (context) => StepTwoContainer());
+      break;
+    case ForgotPassword3:
+      return MaterialPageRoute(
+          builder: (context) => StepThreeContainer(popCurrent: popCurrent));
+      break;
+    default:
+        return null;
+      break;
   }
 }

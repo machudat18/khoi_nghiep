@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 class PageWidget extends StatelessWidget {
   final String _uriImg, _title, _description;
-
   PageWidget(this._uriImg, this._title, this._description);
 
   @override

@@ -12,7 +12,7 @@ class Introduce extends StatefulWidget {
 
 class _IntroduceState extends State<Introduce> {
   final _currentPageNotifier = ValueNotifier<int>(0);
-  final _pageController = PageController(initialPage: 1);
+  final _pageController = PageController(initialPage: 0);
   final List<Widget> pageWidget = [
     PageWidget(
         'assets/im_introduce.png',
@@ -44,7 +44,6 @@ class _IntroduceState extends State<Introduce> {
         child: Column(
           children: [
             Expanded(
-              flex: 2,
               child: PageView.builder(
                 itemCount: pageWidget.length,
                 controller: _pageController,
@@ -93,7 +92,7 @@ class _IntroduceState extends State<Introduce> {
                         color: Colors.white,
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
-                        fontFamily: 'Montserrat'),
+                       ),
                   )),
                 ),
               ),

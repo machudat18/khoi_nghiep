@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:khoi_nghiep/route/route.dart';
+import 'package:khoi_nghiep/route/routing_contsants.dart';
 import 'package:khoi_nghiep/ultils/GetColors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+//TODO Cần phải hỏi lại cách pop ở phần này
 class ForgotPassword extends StatefulWidget {
   @override
   _ForgotPasswordState createState() => _ForgotPasswordState();
@@ -21,7 +23,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         onWillPop: () async => !await _navigatorKey.currentState.maybePop(),
         child: Navigator(
           key: _navigatorKey,
-          // ignore: missing_return
+          initialRoute: ForgotPassword1,
           onGenerateRoute: (settings)=> generateRouteM003(settings,popCurrent),
         )
     );
@@ -107,7 +109,7 @@ class _StepOneContainerState extends State<StepOneContainer> {
                 child: InkWell(
                   borderRadius: BorderRadius.all(Radius.circular(5)),
                   onTap: () {
-                    Navigator.pushNamed(context, '/step1');
+                    Navigator.pushNamed(context, ForgotPassword2);
                   },
                   child: Ink(
                     padding: const EdgeInsets.all(20),
@@ -280,7 +282,7 @@ class _StepTwoContainerState extends State<StepTwoContainer> {
                   borderRadius: BorderRadius.all(Radius.circular(5)),
                   onTap: () {
                     //TODO Check
-                    Navigator.pushNamed(context, '/step2');
+                    Navigator.pushNamed(context, ForgotPassword3);
                   },
                   child: Ink(
                     padding: const EdgeInsets.all(20),

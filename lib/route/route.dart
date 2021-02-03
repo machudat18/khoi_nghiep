@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:khoi_nghiep/route/routing_contsants.dart';
 import 'package:khoi_nghiep/screen/M002Login.dart';
 import 'package:khoi_nghiep/screen/M003ForgotPassword.dart';
+import 'package:khoi_nghiep/screen/M004SignUp.dart';
 
 Route<dynamic> generateRouteUnAuth(RouteSettings settings) {
   switch (settings.name) {
@@ -18,7 +19,7 @@ Route<dynamic> generateRouteUnAuth(RouteSettings settings) {
       break;
     case SignUpRoute:
       return MaterialPageRoute(
-        builder: (context) => ForgotPassword(),
+        builder: (context) => SignUp(),
       );
       break;
     default :
@@ -27,7 +28,7 @@ Route<dynamic> generateRouteUnAuth(RouteSettings settings) {
   }
 }
 
-Route<dynamic> generateRouteM003(RouteSettings settings,VoidCallback popCurrent) {
+Route<dynamic> generateForgotPasswordRoute(RouteSettings settings,VoidCallback popCurrent) {
     switch (settings.name) {
       case ForgotPassword1:
       return MaterialPageRoute(

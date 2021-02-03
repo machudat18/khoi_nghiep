@@ -317,7 +317,7 @@ class End extends StatelessWidget {
           height: 10,
         ),
         DescriptionWidget(
-            'Bằng cách nhấn vào Đăngký, bạn đồng ý với Điều khoản, Chính sách dữ liệu và chính sách Cookie của chúng tôi'
+            'Bằng cách nhấn vào Đăng ký, bạn đồng ý với Điều khoản, Chính sách dữ liệu và chính sách Cookie của chúng tôi'
             '. Bạn có thể nhận được thông báo của chúng tôi qua SMS và chọn không nhận bất cứ lức nào.'),
       ],
     );

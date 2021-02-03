@@ -7,6 +7,7 @@ import 'package:khoi_nghiep/ultils/GetColors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 //TODO Cần phải hỏi lại cách pop ở phần này
+// Có thể sửa lại thành PageView như phần đăng ký
 class ForgotPassword extends StatefulWidget {
   @override
   _ForgotPasswordState createState() => _ForgotPasswordState();
@@ -24,7 +25,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         child: Navigator(
           key: _navigatorKey,
           initialRoute: ForgotPassword1,
-          onGenerateRoute: (settings)=> generateRouteM003(settings,popCurrent),
+          onGenerateRoute: (settings)=> generateForgotPasswordRoute(settings,popCurrent),
         )
     );
   }

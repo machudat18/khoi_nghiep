@@ -2,10 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:khoi_nghiep/screen/M003ForgotPassword.dart';
-import 'package:khoi_nghiep/screen/M004SignUp.dart';
+import 'package:khoi_nghiep/route/routing_contsants.dart';
 import 'package:khoi_nghiep/ultils/GetColors.dart';
-
 
 class Login extends StatefulWidget {
   @override
@@ -237,11 +235,7 @@ class _LoginState extends State<Login> {
                       children: [
                         InkWell(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ForgotPassword()),
-                            );
+                            Navigator.pushNamed(context, ForgotPasswordRoute);
                           },
                           child: Text(
                             'Quên mật khẩu?',
@@ -256,10 +250,7 @@ class _LoginState extends State<Login> {
                         ),
                         InkWell(
                             onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (context) => SignUp()),
-                              );
+                              Navigator.of(context).pushNamed(SignUpRoute);
                             },
                             child: RichText(
                               text: TextSpan(children: [

@@ -146,7 +146,7 @@ class _LoginState extends State<Login> {
                               ),
                               child: Center(
                                   child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
                                     'Facebook',
@@ -156,6 +156,22 @@ class _LoginState extends State<Login> {
                                         fontWeight: FontWeight.w600,
                                         fontFamily: 'Montserrat'),
                                   ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5)),
+                                    ),
+                                    child: new Image.asset(
+                                      'assets/facebook_icon.png',
+                                      color: HexColor("#4267B2"),
+                                      width: 24,
+                                      height: 24,
+                                    ),
+                                  )
                                 ],
                               )),
                             ),
@@ -180,7 +196,7 @@ class _LoginState extends State<Login> {
                               ),
                               child: Center(
                                   child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
                                     'Google',
@@ -190,6 +206,21 @@ class _LoginState extends State<Login> {
                                         fontWeight: FontWeight.w600,
                                         fontFamily: 'Montserrat'),
                                   ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5)),
+                                    ),
+                                    child: new Image.asset(
+                                      'assets/google_icon.png',
+                                      color: Colors.white,
+                                      width: 24,
+                                      height: 24,
+                                    ),
+                                  )
                                 ],
                               )),
                             ),

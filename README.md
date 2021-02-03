@@ -1,6 +1,6 @@
 # khoi_nghiep
 
-Vê phần intro : chưa kiểm tra lần đầu chạy nên vẫn luôn chạy mỗi khi mở chương trình
+Về phần intro : chưa kiểm tra lần đầu chạy nên vẫn luôn chạy mỗi khi mở chương trình
 
 Về phần Quên mật khẩu : Cần xem lại cách quản lý route
 

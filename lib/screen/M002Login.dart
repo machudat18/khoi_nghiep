@@ -166,8 +166,8 @@ class _LoginState extends State<Login> {
                                     child: new Image.asset(
                                       'assets/facebook_icon.png',
                                       color: HexColor("#4267B2"),
-                                      width: 24,
-                                      height: 24,
+                                      width: 16,
+                                      height: 16,
                                     ),
                                   )
                                 ],
@@ -215,8 +215,8 @@ class _LoginState extends State<Login> {
                                     child: new Image.asset(
                                       'assets/google_icon.png',
                                       color: Colors.white,
-                                      width: 24,
-                                      height: 24,
+                                      width: 16,
+                                      height: 16,
                                     ),
                                   )
                                 ],

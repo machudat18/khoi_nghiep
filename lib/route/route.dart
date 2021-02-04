@@ -27,22 +27,3 @@ Route<dynamic> generateRouteUnAuth(RouteSettings settings) {
       break;
   }
 }
-
-Route<dynamic> generateForgotPasswordRoute(RouteSettings settings,VoidCallback popCurrent) {
-    switch (settings.name) {
-      case ForgotPassword1:
-      return MaterialPageRoute(
-          builder: (context) => StepOneContainer(popCurrent: popCurrent));
-      break;
-    case ForgotPassword2:
-      return MaterialPageRoute(builder: (context) => StepTwoContainer());
-      break;
-    case ForgotPassword3:
-      return MaterialPageRoute(
-          builder: (context) => StepThreeContainer(popCurrent: popCurrent));
-      break;
-    default:
-        return null;
-      break;
-  }
-}

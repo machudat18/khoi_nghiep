@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:khoi_nghiep/model/UserInformation.dart';
 import 'package:khoi_nghiep/ultils/GetColors.dart';
-import 'package:khoi_nghiep/widget/SignUpWidget.dart';
+import 'package:khoi_nghiep/widget/CommonWidget.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -16,6 +16,24 @@ class _SignUpState extends State<SignUp> {
   List<Widget> listWidgetSignUp;
   DataSignUp _userInformation = new DataSignUp("", "", "", "", "", "");
   var textButton = 'Tiếp';
+
+  void nextPage() {
+    _pageController.animateToPage(_pageController.page.toInt() + 1,
+        duration: Duration(milliseconds: 400), curve: Curves.easeIn);
+  }
+
+  void previousPage() {
+    _pageController.animateToPage(_pageController.page.toInt() - 1,
+        duration: Duration(milliseconds: 400), curve: Curves.easeIn);
+  }
+
+  bool isFirstPage() {
+    return _pageController.page == 0;
+  }
+
+  bool isLastPage() {
+    return _pageController.page == listWidgetSignUp.length - 1;
+  }
 
   @override
   void initState() {
@@ -31,22 +49,6 @@ class _SignUpState extends State<SignUp> {
       Account(_userInformation),
       End(),
     ];
-  }
-
-  void nextPage() {
-    _pageController.animateToPage(_pageController.page.toInt() + 1,
-        duration: Duration(milliseconds: 400), curve: Curves.easeIn);
-  }
-
-  void previousPage() {
-    _pageController.animateToPage(_pageController.page.toInt() - 1,
-        duration: Duration(milliseconds: 400), curve: Curves.easeIn);
-  }
-  bool isFirstPage() {
-    return _pageController.page == 0;
-  }
-  bool isLastPage() {
-    return _pageController.page == listWidgetSignUp.length - 1;
   }
 
   @override
@@ -83,11 +85,12 @@ class _SignUpState extends State<SignUp> {
       ),
       backgroundColor: Colors.white,
       body: Container(
-        padding: const EdgeInsets.only(left: 24, right: 24),
+
         child: ListView(
           children: [
             Container(
               height: height3 * 2 / 3,
+              padding: const EdgeInsets.all(24),
               child: PageView.builder(
                 itemCount: listWidgetSignUp.length,
                 controller: _pageController,
@@ -111,6 +114,7 @@ class _SignUpState extends State<SignUp> {
             ),
             Container(
               height: height3 / 3,
+              padding: const EdgeInsets.only(left: 24, right: 24),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -144,6 +148,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                   Container(
                     margin: const EdgeInsets.all(50),
+
                     child: InkWell(
                         onTap: () {
                           Navigator.of(context).pop();
@@ -287,7 +292,7 @@ class Account extends StatelessWidget {
     });
     return Column(
       children: [
-        TitleWidget('Email'),
+        TitleWidget('Tài khoản'),
         TextInputWidget(
           controller: _controllerUsername,
           hint: 'Tài khoản',

@@ -7,7 +7,7 @@ import 'package:khoi_nghiep/ultils/GetColors.dart';
 class TextInputWidget extends StatelessWidget {
   final TextEditingController controller;
 
-  var hint;
+  final String hint;
 
   TextInputWidget({this.controller,this.hint});
 

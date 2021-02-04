@@ -173,7 +173,7 @@ class _StepOneContainerState extends State<StepOneContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.only(left: 24,right: 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -336,7 +336,7 @@ class _StepThreeContainerState extends State<StepThreeContainer> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top : 60),
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.only(left : 24, right: 24),
       child: Column(
         children: [
           Column(

@@ -39,7 +39,7 @@ class DescriptionWidget extends StatelessWidget {
       child: Text(
         '$text',
         textAlign: TextAlign.center,
-        style: TextStyle(fontWeight: FontWeight.w300, fontSize: 16),
+        style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
       ),
     );
   }

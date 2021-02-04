@@ -4,7 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 void main() {
-
   runApp(MyApp());
 }
 
@@ -18,15 +17,19 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(fontFamily: 'Montserrat'),
-      home: new SplashScreen(
-        seconds: 3,
-        pageRoute: _createRoute() ,
-        navigateAfterSeconds: AfterSplash(),
-        loaderColor: Colors.red,
-        image: new Image.asset('assets/icon.png'),
-        backgroundColor: Colors.white,
-        useLoader: false,
-      ),
+      home: Splash(),
+    );
+  }
+
+  Widget Splash() {
+    return new SplashScreen(
+      seconds: 2,
+      pageRoute: _createRoute(),
+      navigateAfterSeconds: AfterSplash(),
+      loaderColor: Colors.red,
+      image: new Image.asset('assets/icon.png'),
+      backgroundColor: Colors.white,
+      useLoader: false,
     );
   }
 }

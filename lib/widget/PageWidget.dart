@@ -33,7 +33,7 @@ class PageWidget extends StatelessWidget {
             style: TextStyle(
                 fontSize: 16,
                 fontFamily: 'Montserrat',
-                fontWeight: FontWeight.w300),
+                fontWeight: FontWeight.w400),
           ),
         ],
       ),

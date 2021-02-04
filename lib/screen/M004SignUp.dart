@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:khoi_nghiep/model/UserInformation.dart';
+import 'package:khoi_nghiep/model/DataSignUp.dart';
 import 'package:khoi_nghiep/ultils/GetColors.dart';
 import 'package:khoi_nghiep/widget/CommonWidget.dart';
 

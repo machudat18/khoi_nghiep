@@ -5,6 +5,8 @@ import 'package:khoi_nghiep/ultils/GetColors.dart';
 import 'package:khoi_nghiep/widget/PageWidget.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 
+import 'M005Inside.dart';
+
 class Introduce extends StatefulWidget {
   @override
   _IntroduceState createState() => _IntroduceState();
@@ -76,7 +78,7 @@ class _IntroduceState extends State<Introduce> {
                 onTap: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => UnAuth()),
+                    MaterialPageRoute(builder: (context) => InsideManagement()),
                   );
                 },
                 child: Ink(

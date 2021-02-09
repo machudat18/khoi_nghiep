@@ -335,20 +335,13 @@ class _StepThreeContainerState extends State<StepThreeContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top : 60),
       padding: const EdgeInsets.only(left : 24, right: 24),
       child: Column(
         children: [
           Column(
             children: [
               Center(
-                  child: Text(
-                'Điền thông tin',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 18),
-              )),
+                  child: TitleWidget('Điền thông tin')),
               Container(
                 color: HexColor("#F7F7F7"),
                 margin: const EdgeInsets.only(top: 20),

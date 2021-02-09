@@ -1,21 +1,23 @@
-import 'dart:developer';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:khoi_nghiep/model/DataSignUp.dart';
+import 'package:khoi_nghiep/model/UserInformationRegister.dart';
+import 'package:khoi_nghiep/service/auth.dart';
 import 'package:khoi_nghiep/ultils/GetColors.dart';
 import 'package:khoi_nghiep/widget/CommonWidget.dart';
+import 'package:khoi_nghiep/widget/PageWidget.dart';
 
-class SignUp extends StatefulWidget {
+class Register extends StatefulWidget {
   @override
-  _SignUpState createState() => _SignUpState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _SignUpState extends State<SignUp> {
+class _RegisterState extends State<Register> {
   var _currentPageNotifier;
   PageController _pageController;
   List<Widget> listWidgetSignUp;
-  DataSignUp _userInformation = new DataSignUp("", "", "", "", "", "");
+  UserInformationRegister _userInformation = new UserInformationRegister();
   var textButton = 'Tiếp';
+  final AuthService _authService = AuthService();
 
   void nextPage() {
     _pageController.animateToPage(_pageController.page.toInt() + 1,
@@ -85,7 +87,6 @@ class _SignUpState extends State<SignUp> {
       ),
       backgroundColor: Colors.white,
       body: Container(
-
         child: ListView(
           children: [
             Container(
@@ -95,19 +96,18 @@ class _SignUpState extends State<SignUp> {
                 itemCount: listWidgetSignUp.length,
                 controller: _pageController,
                 itemBuilder: (BuildContext context, int index) {
-                  return listWidgetSignUp[index];
+                  return KeepAlivePage(child: listWidgetSignUp[index]);
                 },
                 onPageChanged: (int index) {
-                  if (index >= listWidgetSignUp.length - 1) {
-                    setState(() {
-                      textButton = 'Hoàn tất';
-                    });
-                  } else {
-                    setState(() {
-                      textButton = 'Tiếp';
-                    });
-                  }
-                  log(_userInformation.toString());
+                  // if (index >= listWidgetSignUp.length - 1) {
+                  //   setState(() {
+                  //     textButton = 'Hoàn tất';
+                  //   });
+                  // } else {
+                  //   setState(() {
+                  //     textButton = 'Tiếp';
+                  //   });
+                  // }
                   _currentPageNotifier.value = index;
                 },
               ),
@@ -122,9 +122,17 @@ class _SignUpState extends State<SignUp> {
                     margin: const EdgeInsets.only(top: 20),
                     child: InkWell(
                       borderRadius: BorderRadius.all(Radius.circular(5)),
-                      onTap: () {
+                      onTap: () async {
                         if (isLastPage()) {
-                         popCurrent();
+                          User result = await _authService
+                              .registerWithEmailAndPassword(_userInformation);
+                          if (result != null) {
+                            showToast('Đăng ký thành công');
+                            popCurrent();
+                          } else {
+                            print('Đăng ký thất bại');
+                          }
+                          return;
                         }
                         nextPage();
                       },
@@ -147,8 +155,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.all(50),
-
+                    margin: const EdgeInsets.only(top: 20, bottom: 20),
                     child: InkWell(
                         onTap: () {
                           Navigator.of(context).pop();
@@ -199,7 +206,7 @@ class Welcome extends StatelessWidget {
 }
 
 class Name extends StatelessWidget {
-  final DataSignUp _userInformation;
+  final UserInformationRegister _userInformation;
 
   Name(this._userInformation);
 
@@ -223,7 +230,7 @@ class Name extends StatelessWidget {
 }
 
 class PhoneNumber extends StatelessWidget {
-  final DataSignUp _userInformation;
+  final UserInformationRegister _userInformation;
 
   PhoneNumber(this._userInformation);
 
@@ -247,7 +254,7 @@ class PhoneNumber extends StatelessWidget {
 }
 
 class Email extends StatelessWidget {
-  final DataSignUp _userInformation;
+  final UserInformationRegister _userInformation;
 
   Email(this._userInformation);
 
@@ -272,7 +279,7 @@ class Email extends StatelessWidget {
 }
 
 class Account extends StatelessWidget {
-  final DataSignUp _userInformation;
+  final UserInformationRegister _userInformation;
 
   Account(this._userInformation);
 

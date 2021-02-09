@@ -1,17 +1,18 @@
-import 'dart:core';
-
 class UserData {
-  var _avatar, _backGround;
-  String _name, _userID, _phoneNumber, _mail;
-  List<UserData> following;
+  String _name, _email, _userID, _phoneNumber, _password, _userName;
 
-  UserData(this._avatar, this._backGround, this._name, this._userID,
-      this._phoneNumber, this._mail, this.following);
+  UserData({name, email, userID, phoneNumber, password, userName});
 
-  get mail => _mail;
+  get userName => _userName;
 
-  set mail(value) {
-    _mail = value;
+  set userName(value) {
+    _userName = value;
+  }
+
+  get password => _password;
+
+  set password(value) {
+    _password = value;
   }
 
   get phoneNumber => _phoneNumber;
@@ -26,21 +27,15 @@ class UserData {
     _userID = value;
   }
 
+  get email => _email;
+
+  set email(value) {
+    _email = value;
+  }
+
   String get name => _name;
 
   set name(String value) {
     _name = value;
-  }
-
-  get backGround => _backGround;
-
-  set backGround(value) {
-    _backGround = value;
-  }
-
-  get avatar => _avatar;
-
-  set avatar(value) {
-    _avatar = value;
   }
 }

@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:khoi_nghiep/ultils/GetColors.dart';
 
 class TextInputWidget extends StatelessWidget {
@@ -55,7 +56,7 @@ class TitleWidget extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: 60,
+          height: 20,
         ),
         Text(
           '$_title',
@@ -68,4 +69,34 @@ class TitleWidget extends StatelessWidget {
       ],
     );
   }
+}
+
+class TextNormal extends StatelessWidget {
+  final text;
+  final double fontSize;
+
+  const TextNormal( this.text, this.fontSize);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(bottom: 5),
+      alignment: Alignment.center,
+      child: Text(
+        text,
+        style: TextStyle(
+            fontWeight: FontWeight.w600,
+            color: HexColor('#747474'),
+            fontSize: fontSize),
+      ),
+    );
+  }
+}
+
+void showToast(String title) {
+  Fluttertoast.showToast(
+      msg: "$title",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIos: 1);
 }

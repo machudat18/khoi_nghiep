@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:khoi_nghiep/screen/M007Group.dart';
 import 'package:khoi_nghiep/screen/M008News.dart';
 import 'package:khoi_nghiep/ultils/GetColors.dart';
+import 'package:provider/provider.dart';
 
 import 'M006NewFeed.dart';
 import 'M009User.dart';
@@ -13,33 +15,13 @@ class InsideManagement extends StatefulWidget {
 }
 
 class _InsideManagementState extends State<InsideManagement> {
-  static final int HIDE = 0;
-  static final int SHOW = 100;
-  var _currentIndex = 0;
-  var _currentPageNotifier;
-  PageController _pageController;
+  var _currentIndex = 3;
   List<Widget> listWidgetInside;
-  var textButton = 'Tiếp';
-  var alpha = HIDE;
-  void animateToPage(int index) {
-    _pageController.animateToPage(index,
-        duration: Duration(milliseconds: 400), curve: Curves.easeIn);
-  }
-
-  bool isFirstPage() {
-    return _pageController.page == 0;
-  }
-
-  bool isLastPage() {
-    return _pageController.page == listWidgetInside.length - 1;
-  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _currentPageNotifier = ValueNotifier<int>(0);
-    _pageController = PageController(initialPage: 0);
     listWidgetInside = [
       NewFeed(),
       Group(),
@@ -50,19 +32,26 @@ class _InsideManagementState extends State<InsideManagement> {
 
   @override
   Widget build(BuildContext context) {
+    if (Provider.of<User>(context) != null) {
+      listWidgetInside = [
+        NewFeed(),
+        Group(),
+        News(),
+        UserLogged(),
+      ];
+    } else {
+      listWidgetInside = [
+        NewFeed(),
+        Group(),
+        News(),
+        UserUnLogged(),
+      ];
+    }
+    print('build');
     return Scaffold(
-        body: PageView.builder(
-          itemCount: listWidgetInside.length,
-          controller: _pageController,
-          itemBuilder: (BuildContext context, int index) {
-            return listWidgetInside[index];
-          },
-          onPageChanged: (int index) {
-            _currentPageNotifier.value = index;
-            setState(() {
-              _currentIndex = index;
-            });
-          },
+        body: IndexedStack(
+          index: _currentIndex,
+          children: listWidgetInside,
         ),
         bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
@@ -89,7 +78,6 @@ class _InsideManagementState extends State<InsideManagement> {
               ),
             ],
             onTap: (value) {
-              animateToPage(value);
               setState(() {
                 _currentIndex = value;
               });

@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dat.khoi_nghiep">
    <application
+       android:usesCleartextTraffic="true"
         android:label="khoi_nghiep"
         android:icon="@mipmap/ic_launcher">
         <activity

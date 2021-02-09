@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:khoi_nghiep/screen/M001UnAuth.dart';
 import 'package:khoi_nghiep/ultils/GetColors.dart';
 import 'package:khoi_nghiep/widget/PageWidget.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 
+import 'AllRouteManagement.dart';
 import 'M005Inside.dart';
 
 class Introduce extends StatefulWidget {
@@ -40,9 +40,10 @@ class _IntroduceState extends State<Introduce> {
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
-        margin: const EdgeInsets.only(top: 100),
+        height: height,
         child: Column(
           children: [
             Expanded(
@@ -78,7 +79,7 @@ class _IntroduceState extends State<Introduce> {
                 onTap: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => InsideManagement()),
+                    MaterialPageRoute(builder: (context) => AllRouteManagement()),
                   );
                 },
                 child: Ink(

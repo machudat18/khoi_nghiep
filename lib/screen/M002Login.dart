@@ -2,8 +2,10 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:khoi_nghiep/route/routing_contsants.dart';
+import 'package:khoi_nghiep/route/routing_contsants.dart' as Routes;
+import 'package:khoi_nghiep/service/auth.dart';
 import 'package:khoi_nghiep/ultils/GetColors.dart';
+import 'package:khoi_nghiep/widget/CommonWidget.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -12,8 +14,8 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   TextEditingController _controllerUserName, _controllerPassword;
-  String _username, _password;
-
+  final AuthService _authService = AuthService();
+  String _username , _password;
   @override
   void initState() {
     super.initState();
@@ -30,10 +32,20 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     log("build");
-    return SafeArea(
+    return WillPopScope(
+      onWillPop: () async {
+        _moveToInSideScreen(context);
+        return false;
+      },
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios_sharp, color: Colors.black),
+            onPressed: () {
+              _moveToInSideScreen(context);
+            },
+          ),
           title: Text(
             'Đăng nhập',
             style: TextStyle(color: Colors.black),
@@ -43,7 +55,7 @@ class _LoginState extends State<Login> {
           elevation: 0,
         ),
         body: Padding(
-          padding: const EdgeInsets.all(24.0),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: ListView(
             children: [
               Center(
@@ -83,7 +95,21 @@ class _LoginState extends State<Login> {
                 margin: const EdgeInsets.only(top: 20),
                 child: InkWell(
                   borderRadius: BorderRadius.all(Radius.circular(5)),
-                  onTap: () {},
+                  onTap: () async {
+                    if(_username == null|| _password == null){
+                     showToast('Tên đăng nhập hoặc mật khẩu trống');
+                      return;
+                    }
+                    dynamic result =
+                        await _authService.signInWithEmailAndPassword(
+                            email: _username,password: _password);
+                    if (result == null) {
+                      print('Đăng nhập thất bại');
+                    } else {
+                      Navigator.pushReplacementNamed(
+                          context, Routes.InsideRouteManagement);
+                    }
+                  },
                   child: Ink(
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
@@ -107,7 +133,7 @@ class _LoginState extends State<Login> {
                 child: Row(children: <Widget>[
                   Expanded(
                       child: Divider(
-                    thickness: 3,
+                    thickness: 1,
                     color: HexColor("#DEDEDE"),
                   )),
                   Padding(
@@ -120,7 +146,7 @@ class _LoginState extends State<Login> {
                   Expanded(
                       child: Divider(
                     color: HexColor("#DEDEDE"),
-                    thickness: 3,
+                    thickness: 1,
                   )),
                 ]),
               ),
@@ -133,7 +159,8 @@ class _LoginState extends State<Login> {
                         child: Container(
                           margin: const EdgeInsets.only(top: 20),
                           child: InkWell(
-                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(5)),
                             onTap: () {},
                             child: Ink(
                               padding: const EdgeInsets.all(20),
@@ -160,8 +187,8 @@ class _LoginState extends State<Login> {
                                   Container(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(5)),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(5)),
                                     ),
                                     child: new Image.asset(
                                       'assets/facebook_icon.png',
@@ -183,18 +210,19 @@ class _LoginState extends State<Login> {
                         child: Container(
                           margin: const EdgeInsets.only(top: 20),
                           child: InkWell(
-                            borderRadius: BorderRadius.all(Radius.circular(5)),
-                            onTap: () {},
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(5)),
+                            onTap: () async {},
                             child: Ink(
                               padding: const EdgeInsets.all(20),
                               decoration: BoxDecoration(
-                                color: HexColor("##D54C3F"),
+                                color: HexColor("#D54C3F"),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(5)),
                               ),
                               child: Center(
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
                                     'Google',
@@ -209,8 +237,8 @@ class _LoginState extends State<Login> {
                                   ),
                                   Container(
                                     decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(5)),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(5)),
                                     ),
                                     child: new Image.asset(
                                       'assets/google_icon.png',
@@ -228,14 +256,15 @@ class _LoginState extends State<Login> {
                     ],
                   ),
                   SizedBox(
-                    height: 100,
+                    height: 70,
                   ),
                   Container(
                     child: Column(
                       children: [
                         InkWell(
                           onTap: () {
-                            Navigator.pushNamed(context, ForgotPasswordRoute);
+                            Navigator.pushNamed(
+                                context, Routes.ForgotPasswordRoute);
                           },
                           child: Text(
                             'Quên mật khẩu?',
@@ -250,7 +279,8 @@ class _LoginState extends State<Login> {
                         ),
                         InkWell(
                             onTap: () {
-                              Navigator.of(context).pushNamed(SignUpRoute);
+                              Navigator.of(context)
+                                  .pushNamed(Routes.SignUpRoute);
                             },
                             child: RichText(
                               text: TextSpan(children: [
@@ -281,4 +311,7 @@ class _LoginState extends State<Login> {
       ),
     );
   }
+
+  void _moveToInSideScreen(BuildContext context) =>
+      Navigator.pushReplacementNamed(context, Routes.InsideRouteManagement);
 }

@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:khoi_nghiep/screen/M00Introduce.dart';
 import 'package:khoi_nghiep/service/auth.dart';
+import 'package:khoi_nghiep/service/storage.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:splashscreen/splashscreen.dart';
@@ -13,6 +14,9 @@ void main() async {
   runApp(MultiProvider(providers: [
     StreamProvider(
       create: (context) => AuthService().getStreamUser(),
+    ),
+    StreamProvider(
+      create: (context) => StorageService().userData,
     )
   ], child: MyApp()));
 }

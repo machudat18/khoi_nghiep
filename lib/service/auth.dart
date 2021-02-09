@@ -56,7 +56,7 @@ class AuthService {
       User user = result.user;
       print(user.email);
       await user.updateProfile(displayName: userInformationRegister.name);
-      await StorageService().addUser(user: userInformationRegister);
+      await StorageService().addUser(user: userInformationRegister,uid: user.uid);
       return user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

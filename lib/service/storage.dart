@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:khoi_nghiep/model/UserInformationRegister.dart';
+import 'package:khoi_nghiep/service/auth.dart';
 
 class StorageService {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -12,10 +13,11 @@ class StorageService {
 
   StorageService._internal();
 
-  Future<void> addUser({UserInformationRegister user}) {
+  Future<void> addUser({UserInformationRegister user, String uid}) {
     // Call the user's CollectionReference to add a new user
     return users
-        .add({
+        .doc(uid)
+        .set({
           'name': user.name,
           'email': user.email,
           'userName': user.userName,
@@ -24,7 +26,8 @@ class StorageService {
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));
   }
-  Stream<QuerySnapshot> get userData{
-    return users.snapshots();
+
+  Stream<DocumentSnapshot> get userData {
+    return users.doc('/${AuthService().auth.currentUser.uid}').snapshots();
   }
 }

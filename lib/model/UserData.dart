@@ -8,7 +8,6 @@ class UserData {
   set userName(value) {
     _userName = value;
   }
-
   get password => _password;
 
   set password(value) {

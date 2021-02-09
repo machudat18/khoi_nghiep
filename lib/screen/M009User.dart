@@ -1,8 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:khoi_nghiep/model/UserInformation.dart';
 import 'package:khoi_nghiep/route/routing_contsants.dart';
 import 'package:khoi_nghiep/service/auth.dart';
+import 'package:khoi_nghiep/service/storage.dart';
 import 'package:khoi_nghiep/ultils/GetColors.dart';
 import 'package:khoi_nghiep/widget/CommonWidget.dart';
 
@@ -12,7 +13,6 @@ class UserLogged extends StatefulWidget {
 }
 
 class _UserLoggedState extends State<UserLogged> {
-  UserInformation data;
 
   @override
   void initState() {
@@ -21,15 +21,6 @@ class _UserLoggedState extends State<UserLogged> {
   }
 
   void initDummyData() {
-    data = new UserInformation(
-        avatar: 'assets/avatar.jpg',
-        backGround: 'assets/back_ground.jpg',
-        name: 'Trần Đạt',
-        email: 'dqeqưeqưew',
-        password: 'đâsdâsdsda',
-        phoneNumber: '0344822735',
-        userID: 'UID 111',
-        following: ['dasdasds', 'dasdasds']);
   }
 
   @override
@@ -38,281 +29,300 @@ class _UserLoggedState extends State<UserLogged> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     const ELEVATION = 2.0;
-    String followingCount =
-        data == null ? '0' : data.following.length.toString();
-    return Stack(
-      children: [
-        SingleChildScrollView(
-          child: Stack(
+
+    return StreamBuilder<DocumentSnapshot>(
+      stream: StorageService().userData,
+      builder: (context, snapshot) {
+        print(snapshot.data.data());
+        if (snapshot.hasError) {
+          return Text('Something went wrong');
+        }
+
+        if (snapshot.connectionState == ConnectionState.active) {
+          final Map data = snapshot.data.data();
+          String followingCount = data['following'] == null
+              ? '0'
+              : data['following'].length.toString();
+          return Stack(
             children: [
-              Container(
-                height: 375,
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  image: DecorationImage(
-                      image: AssetImage('assets/back_ground.jpg'),
-                      fit: BoxFit.cover),
-                ),
-              ),
-              Container(
-                height: height + kBottomNavigationBarHeight + 100,
-                margin: const EdgeInsets.only(top: 100),
-                decoration: BoxDecoration(
-                  color: const Color(0x000000).withOpacity(0),
-                ),
-                child: Stack(children: [
-                  Container(
-                    margin: const EdgeInsets.only(top: 50),
-                    decoration: BoxDecoration(
-                      color: HexColor('#F7F7F7'),
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
+              SingleChildScrollView(
+                child: Stack(
+                  children: [
+                    Container(
+                      height: 375,
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        image: DecorationImage(
+                            image: AssetImage('assets/back_ground.jpg'),
+                            fit: BoxFit.cover),
+                      ),
                     ),
-                    child: ListView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: [
-                        Material(
-                          elevation: ELEVATION,
-                          borderRadius: BorderRadius.all(Radius.circular(5)),
-                          child: Container(
-                            margin: const EdgeInsets.only(top: 50),
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                            ),
-                            child: Column(
-                              children: [
-                                Text(
-                                  '${AuthService().auth.currentUser.displayName}',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 24),
-                                ),
-                                SizedBox(height: 16),
-                                Table(
-                                  children: [
-                                    TableRow(
-                                      children: [
-                                        TextNormal(followingCount, 16),
-                                        TextNormal(followingCount, 16),
-                                        TextNormal(followingCount, 16)
-                                      ],
-                                    ),
-                                    TableRow(children: [
-                                      TextNormal('Người theo dõi', 12),
-                                      TextNormal('Đang theo dõi', 12),
-                                      TextNormal('Bài viết', 12)
-                                    ])
-                                  ],
-                                ),
-                                Container(
-                                  width: width * 2 / 3,
-                                  margin: const EdgeInsets.only(
-                                      top: 36, bottom: 16),
-                                  child: InkWell(
+                    Container(
+                      height: height + kBottomNavigationBarHeight + 100,
+                      margin: const EdgeInsets.only(top: 100),
+                      decoration: BoxDecoration(
+                        color: const Color(0x000000).withOpacity(0),
+                      ),
+                      child: Stack(children: [
+                        Container(
+                          margin: const EdgeInsets.only(top: 50),
+                          decoration: BoxDecoration(
+                            color: HexColor('#F7F7F7'),
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                          ),
+                          child: ListView(
+                            physics: const NeverScrollableScrollPhysics(),
+                            children: [
+                              Material(
+                                elevation: ELEVATION,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5)),
+                                child: Container(
+                                  margin: const EdgeInsets.only(top: 50),
+                                  decoration: BoxDecoration(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(50)),
-                                    onTap: () {},
-                                    child: Ink(
-                                      padding: const EdgeInsets.all(20),
-                                      decoration: BoxDecoration(
-                                        color: HexColor("#0062DD"),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(50)),
-                                      ),
-                                      child: Center(
-                                          child: Text(
-                                        'Hồ sơ cá nhân',
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        '${data['name']}',
                                         style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
-                                            fontFamily: 'Montserrat'),
-                                      )),
-                                    ),
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 24),
+                                      ),
+                                      SizedBox(height: 16),
+                                      Table(
+                                        children: [
+                                          TableRow(
+                                            children: [
+                                              TextNormal(followingCount, 16),
+                                              TextNormal(followingCount, 16),
+                                              TextNormal(followingCount, 16)
+                                            ],
+                                          ),
+                                          TableRow(children: [
+                                            TextNormal('Người theo dõi', 12),
+                                            TextNormal('Đang theo dõi', 12),
+                                            TextNormal('Bài viết', 12)
+                                          ])
+                                        ],
+                                      ),
+                                      Container(
+                                        width: width * 2 / 3,
+                                        margin: const EdgeInsets.only(
+                                            top: 36, bottom: 16),
+                                        child: InkWell(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(50)),
+                                          onTap: () {},
+                                          child: Ink(
+                                            padding: const EdgeInsets.all(20),
+                                            decoration: BoxDecoration(
+                                              color: HexColor("#0062DD"),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(50)),
+                                            ),
+                                            child: Center(
+                                                child: Text(
+                                              'Hồ sơ cá nhân',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontFamily: 'Montserrat'),
+                                            )),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 16,
-                        ),
-                        Material(
-                          elevation: ELEVATION,
-                          borderRadius: BorderRadius.all(Radius.circular(5)),
-                          child: UserButton(
-                            text: 'Dòng thời gian',
-                            action: () {
-                              print('click');
-                            },
-                          ),
-                        ),
-                        SizedBox(
-                          height: 16,
-                        ),
-                        Material(
-                          shape: RoundedRectangleBorder(
-                              //side: BorderSide(width: 0.1),
-                              borderRadius: BorderRadius.circular(5.0)),
-                          elevation: ELEVATION,
-                          child: Column(
-                            children: [
-                              UserButton(
-                                text: 'Bài viết',
-                                count: followingCount,
-                                action: () {},
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(right: 20, left: 20),
-                                child: Divider(
-                                  thickness: 2,
-                                  color: HexColor("#DEDEDE"),
+                              SizedBox(
+                                height: 16,
+                              ),
+                              Material(
+                                elevation: ELEVATION,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5)),
+                                child: UserButton(
+                                  text: 'Dòng thời gian',
+                                  action: () {
+                                    print('click');
+                                  },
                                 ),
                               ),
-                              UserButton(
-                                text: 'Đang theo dõi',
-                                count: followingCount,
-                                action: () {},
+                              SizedBox(
+                                height: 16,
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(right: 20, left: 20),
-                                child: Divider(
-                                  thickness: 2,
-                                  color: HexColor("#DEDEDE"),
+                              Material(
+                                shape: RoundedRectangleBorder(
+                                    //side: BorderSide(width: 0.1),
+                                    borderRadius: BorderRadius.circular(5.0)),
+                                elevation: ELEVATION,
+                                child: Column(
+                                  children: [
+                                    UserButton(
+                                      text: 'Bài viết',
+                                      count: followingCount,
+                                      action: () {},
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          right: 20, left: 20),
+                                      child: Divider(
+                                        thickness: 2,
+                                        color: HexColor("#DEDEDE"),
+                                      ),
+                                    ),
+                                    UserButton(
+                                      text: 'Đang theo dõi',
+                                      count: followingCount,
+                                      action: () {},
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          right: 20, left: 20),
+                                      child: Divider(
+                                        thickness: 2,
+                                        color: HexColor("#DEDEDE"),
+                                      ),
+                                    ),
+                                    UserButton(
+                                      text: 'Đã lưu',
+                                      count: followingCount,
+                                      action: () {},
+                                    )
+                                  ],
                                 ),
                               ),
-                              UserButton(
-                                text: 'Đã lưu',
-                                count: followingCount,
-                                action: () {},
-                              )
+                              SizedBox(
+                                height: 16,
+                              ),
+                              Material(
+                                elevation: ELEVATION,
+                                shape: RoundedRectangleBorder(
+                                    //side: BorderSide(width: 0.1),
+                                    borderRadius: BorderRadius.circular(5.0)),
+                                child: UserButton(
+                                  text: 'Cài đặt',
+                                  action: () {
+                                    print('click');
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                height: 16,
+                              ),
+                              Material(
+                                  elevation: ELEVATION,
+                                  shape: RoundedRectangleBorder(
+                                      //side: BorderSide(width: 0.1),
+                                      borderRadius: BorderRadius.circular(5.0)),
+                                  child: InkWell(
+                                    onTap: () {},
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child: TextNormal('Chuyển tài khoản', 14),
+                                    ),
+                                  )),
+                              SizedBox(
+                                height: 16,
+                              ),
+                              Material(
+                                  elevation: ELEVATION,
+                                  shape: RoundedRectangleBorder(
+                                      //side: BorderSide(width: 0.1),
+                                      borderRadius: BorderRadius.circular(5.0)),
+                                  child: InkWell(
+                                    onTap: () async {
+                                      //TODO đăng xuất
+                                      await AuthService().signOut();
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child: TextNormal('Đăng xuất', 14),
+                                    ),
+                                  )),
+                              SizedBox(
+                                height: 50,
+                              ),
                             ],
                           ),
                         ),
-                        SizedBox(
-                          height: 16,
-                        ),
-                        Material(
-                          elevation: ELEVATION,
-                          shape: RoundedRectangleBorder(
-                              //side: BorderSide(width: 0.1),
-                              borderRadius: BorderRadius.circular(5.0)),
-                          child: UserButton(
-                            text: 'Cài đặt',
-                            action: () {
-                              print('click');
-                            },
-                          ),
-                        ),
-                        SizedBox(
-                          height: 16,
-                        ),
-                        Material(
-                            elevation: ELEVATION,
-                            shape: RoundedRectangleBorder(
-                                //side: BorderSide(width: 0.1),
-                                borderRadius: BorderRadius.circular(5.0)),
-                            child: InkWell(
-                              onTap: () {},
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: TextNormal('Chuyển tài khoản', 14),
-                              ),
-                            )),
-                        SizedBox(
-                          height: 16,
-                        ),
-                        Material(
-                            elevation: ELEVATION,
-                            shape: RoundedRectangleBorder(
-                                //side: BorderSide(width: 0.1),
-                                borderRadius: BorderRadius.circular(5.0)),
-                            child: InkWell(
-                              onTap: () async {
-                                //TODO đăng xuất
-                                await AuthService().signOut();
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: TextNormal('Đăng xuất', 14),
-                              ),
-                            )),
-                        SizedBox(
-                          height: 50,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Container(
-                      padding: const EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(50))),
-                      child: Container(
-                        width: 100,
-                        height: 100,
-                        child: Stack(
-                          children: <Widget>[
-                            CircleAvatar(
-                              radius: 60,
-                              child: ClipOval(
-                                child: new Image.asset(
-                                  'assets/avatar.jpg',
-                                ),
+                        Align(
+                          alignment: Alignment.topCenter,
+                          child: Container(
+                            padding: const EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(50))),
+                            child: Container(
+                              width: 100,
+                              height: 100,
+                              child: Stack(
+                                children: <Widget>[
+                                  CircleAvatar(
+                                    radius: 60,
+                                    child: ClipOval(
+                                      child: new Image.asset(
+                                        'assets/avatar.jpg',
+                                      ),
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.bottomRight,
+                                    child: IconButton(
+                                      icon: Icon(
+                                        Icons.camera_alt_sharp,
+                                        color: Colors.black,
+                                        size: 24,
+                                      ),
+                                      onPressed: () {},
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: IconButton(
-                                icon: Icon(
-                                  Icons.camera_alt_sharp,
-                                  color: Colors.black,
-                                  size: 24,
-                                ),
-                                onPressed: () {},
-                              ),
-                            )
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                ]),
-              )
-            ],
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.only(top: paddingTop),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                icon: Icon(
-                  Icons.notifications,
-                  color: Colors.white,
-                  size: 18,
+                      ]),
+                    )
+                  ],
                 ),
-                onPressed: () {},
               ),
-              IconButton(
-                icon: Icon(
-                  Icons.camera_alt_sharp,
-                  color: Colors.white,
-                  size: 18,
+              Container(
+                padding: EdgeInsets.only(top: paddingTop),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        Icons.notifications,
+                        color: Colors.white,
+                        size: 18,
+                      ),
+                      onPressed: () {},
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.camera_alt_sharp,
+                        color: Colors.white,
+                        size: 18,
+                      ),
+                      onPressed: () {},
+                    )
+                  ],
                 ),
-                onPressed: () {},
-              )
+              ),
             ],
-          ),
-        ),
-      ],
+          );
+        }
+        return Center(child: Text("Loading"));
+      },
     );
   }
 }
@@ -433,7 +443,7 @@ class _UserUnLoggedState extends State<UserUnLogged> {
                             margin: const EdgeInsets.only(top: 36, bottom: 16),
                             child: InkWell(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
+                              BorderRadius.all(Radius.circular(50)),
                               onTap: () {
                                 Navigator.of(context)
                                     .pushReplacementNamed(LoginRoute);
@@ -443,17 +453,17 @@ class _UserUnLoggedState extends State<UserUnLogged> {
                                 decoration: BoxDecoration(
                                   color: HexColor("#0062DD"),
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(50)),
+                                  BorderRadius.all(Radius.circular(50)),
                                 ),
                                 child: Center(
                                     child: Text(
-                                  'Đăng nhập / Đăng ký',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: 'Montserrat'),
-                                )),
+                                      'Đăng nhập / Đăng ký',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: 'Montserrat'),
+                                    )),
                               ),
                             ),
                           ),
@@ -467,7 +477,7 @@ class _UserUnLoggedState extends State<UserUnLogged> {
                   Material(
                     elevation: ELEVATION,
                     shape: RoundedRectangleBorder(
-                        //side: BorderSide(width: 0.1),
+                      //side: BorderSide(width: 0.1),
                         borderRadius: BorderRadius.circular(5.0)),
                     child: UserButton(
                       text: 'Cài đặt',
@@ -492,12 +502,9 @@ class _UserUnLoggedState extends State<UserUnLogged> {
                   child: Stack(
                     children: <Widget>[
                       CircleAvatar(
-                        radius: 60,
-                        child: ClipOval(
-                          child: new Image.asset(
-                            'assets/avatar.jpg',
-                          ),
-                        ),
+                        radius: 100.0,
+                        backgroundImage: AssetImage('assets/default_ava.jpg'),
+                        backgroundColor: Colors.white,
                       ),
                       Align(
                         alignment: Alignment.bottomRight,

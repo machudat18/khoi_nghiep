@@ -82,4 +82,8 @@ class AuthService {
       return null;
     }
   }
+
+  getUserID() {
+    return _auth.currentUser.uid;
+  }
 }

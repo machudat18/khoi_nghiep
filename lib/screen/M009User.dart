@@ -33,7 +33,6 @@ class _UserLoggedState extends State<UserLogged> {
     return StreamBuilder<DocumentSnapshot>(
       stream: StorageService().userData,
       builder: (context, snapshot) {
-
         if (snapshot.hasError) {
           return Text('Something went wrong');
         }

@@ -1,10 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:khoi_nghiep/screen/M007Group.dart';
 import 'package:khoi_nghiep/screen/M008News.dart';
+import 'package:khoi_nghiep/service/auth.dart';
 import 'package:khoi_nghiep/ultils/GetColors.dart';
-import 'package:provider/provider.dart';
 
 import 'M006NewFeed.dart';
 import 'M009User.dart';
@@ -17,36 +16,33 @@ class InsideManagement extends StatefulWidget {
 class _InsideManagementState extends State<InsideManagement> {
   var _currentIndex = 3;
   List<Widget> listWidgetInside;
+  bool isFirstTime = true;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    listWidgetInside = [
-      NewFeed(),
-      Group(),
-      News(),
-      UserLogged(),
-    ];
+    AuthService().getStreamUser().listen((user) {
+      if (user != null) {
+        listWidgetInside = [
+          NewFeed(),
+          Group(),
+          News(),
+          UserLogged(),
+        ];
+      } else {
+        listWidgetInside = [
+          NewFeed(),
+          Group(),
+          News(),
+          UserUnLogged(),
+        ];
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (Provider.of<User>(context) != null) {
-      listWidgetInside = [
-        NewFeed(),
-        Group(),
-        News(),
-        UserLogged(),
-      ];
-    } else {
-      listWidgetInside = [
-        NewFeed(),
-        Group(),
-        News(),
-        UserUnLogged(),
-      ];
-    }
     print('build');
     return Scaffold(
         body: IndexedStack(

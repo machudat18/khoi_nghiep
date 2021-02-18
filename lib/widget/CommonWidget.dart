@@ -100,3 +100,40 @@ void showToast(String title) {
       gravity: ToastGravity.BOTTOM,
       timeInSecForIos: 1);
 }
+
+showAlertDialog(BuildContext context, VoidCallback save) async {
+  dismissDialog() {
+    Navigator.of(context).pop();
+  }
+
+  await showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      Widget cancelButton = FlatButton(
+        child: Text("Không"),
+        onPressed: () {
+          dismissDialog();
+          Navigator.of(context).pop();
+        },
+      );
+      Widget continueButton = FlatButton(
+        child: Text("OK"),
+        onPressed: () {
+          save();
+          dismissDialog();
+          Navigator.of(context).pop();
+        },
+      );
+      AlertDialog alert = AlertDialog(
+        title: Text("Tạo bài viết mới"),
+        content: Text("Bạn có muốn tạo bài viết mới không?"),
+        actions: [
+          cancelButton,
+          continueButton,
+        ],
+      );
+
+      return alert;
+    },
+  );
+}

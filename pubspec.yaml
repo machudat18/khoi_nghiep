@@ -23,9 +23,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
   firebase_core: "^0.7.0"
   firebase_auth: "^0.20.0+1"
   cloud_firestore: "^0.16.0"
+  firebase_storage: "^7.0.0"
   flutter_quill: ^0.2.8
   notus: ^1.0.0-dev.4.0
   provider: ^4.0.0

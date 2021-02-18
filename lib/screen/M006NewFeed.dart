@@ -3,11 +3,13 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:khoi_nghiep/route/routing_contsants.dart';
+import 'package:khoi_nghiep/service/storage.dart';
 import 'package:khoi_nghiep/ultils/GetColors.dart';
 
 class NewFeed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    StorageService().getAllPosts();
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () {
@@ -34,6 +36,7 @@ class NewFeed extends StatelessWidget {
         body: ListView(
           children: [
             NewTopicWidget(),
+
           ],
         ),
       ),

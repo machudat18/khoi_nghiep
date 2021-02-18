@@ -33,12 +33,13 @@ class _UserLoggedState extends State<UserLogged> {
     return StreamBuilder<DocumentSnapshot>(
       stream: StorageService().userData,
       builder: (context, snapshot) {
-        print(snapshot.data.data());
+
         if (snapshot.hasError) {
           return Text('Something went wrong');
         }
 
         if (snapshot.connectionState == ConnectionState.active) {
+          print(snapshot.data.data());
           final Map data = snapshot.data.data();
           String followingCount = data['following'] == null
               ? '0'

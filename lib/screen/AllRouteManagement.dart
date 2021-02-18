@@ -7,6 +7,7 @@ class AllRouteManagement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Khởi nghiệp',
       onGenerateRoute: router.generateRouteAllManagement,
       initialRoute: InsideRouteManagement,

@@ -5,6 +5,7 @@ import 'package:khoi_nghiep/screen/M002Login.dart';
 import 'package:khoi_nghiep/screen/M003ForgotPassword.dart';
 import 'package:khoi_nghiep/screen/M004Register.dart';
 import 'package:khoi_nghiep/screen/M005Inside.dart';
+import 'package:khoi_nghiep/screen/M006NewPosts.dart';
 
 Route<dynamic> generateRouteAllManagement(RouteSettings settings) {
   switch (settings.name) {
@@ -28,7 +29,12 @@ Route<dynamic> generateRouteAllManagement(RouteSettings settings) {
         builder: (context) => Register(),
       );
       break;
-    default :
+    case NewPostRoute:
+      return MaterialPageRoute(
+        builder: (context) => M006NewPost(),
+      );
+      break;
+    default:
       return null;
       break;
   }

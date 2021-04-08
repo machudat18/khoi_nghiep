@@ -127,7 +127,6 @@ class _RegisterState extends State<Register> {
                           User result = await _authService
                               .registerWithEmailAndPassword(_userInformation);
                           if (result != null) {
-                            showToast('Đăng ký thành công');
                             popCurrent();
                           } else {
                             print('Đăng ký thất bại');

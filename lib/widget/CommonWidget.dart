@@ -1,7 +1,6 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:khoi_nghiep/ultils/GetColors.dart';
 
 class TextInputWidget extends StatelessWidget {
@@ -93,13 +92,6 @@ class TextNormal extends StatelessWidget {
   }
 }
 
-void showToast(String title) {
-  Fluttertoast.showToast(
-      msg: "$title",
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIos: 1);
-}
 
 showAlertDialog(BuildContext context, VoidCallback save) async {
   dismissDialog() {

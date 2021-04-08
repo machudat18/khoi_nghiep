@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:khoi_nghiep/ultils/GetColors.dart';
 import 'package:khoi_nghiep/widget/CommonWidget.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -36,14 +35,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     return _pageController.page == listWidgetForgotPassword.length - 1;
   }
 
-  void showToast() {
-    Fluttertoast.showToast(
-      msg: "Đổi mật khẩu thành công",
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIos: 1,
-    );
-  }
 
   @override
   void initState() {

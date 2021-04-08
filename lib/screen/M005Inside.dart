@@ -22,32 +22,36 @@ class _InsideManagementState extends State<InsideManagement> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    AuthService().getStreamUser().listen((user) {
-      if (user != null) {
-        listWidgetInside = [
-          NewFeed(),
-          Group(),
-          News(),
-          UserLogged(),
-        ];
-      } else {
-        listWidgetInside = [
-          NewFeed(),
-          Group(),
-          News(),
-          UserUnLogged(),
-        ];
-      }
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     print('build');
     return Scaffold(
-        body: IndexedStack(
-          index: _currentIndex,
-          children: listWidgetInside,
+        body: StreamBuilder(
+          stream: AuthService().getStreamUser(),
+          builder: (context, snapshot) {
+            print(snapshot);
+            if (snapshot.data != null) {
+              listWidgetInside = [
+                NewFeed(),
+                Group(),
+                News(),
+                UserLogged(),
+              ];
+            } else {
+              listWidgetInside = [
+                NewFeed(),
+                Group(),
+                News(),
+                UserUnLogged(),
+              ];
+            }
+            return IndexedStack(
+              index: _currentIndex,
+              children: listWidgetInside,
+            );
+          },
         ),
         bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,

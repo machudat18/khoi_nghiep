@@ -97,7 +97,6 @@ class _LoginState extends State<Login> {
                   borderRadius: BorderRadius.all(Radius.circular(5)),
                   onTap: () async {
                     if(_username == null|| _password == null){
-                     showToast('Tên đăng nhập hoặc mật khẩu trống');
                       return;
                     }
                     dynamic result =

@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:khoi_nghiep/features/khoinghiep/presentation/pages/M002Login.dart';
+import 'package:khoi_nghiep/features/khoinghiep/presentation/pages/M003ForgotPassword.dart';
+import 'package:khoi_nghiep/features/khoinghiep/presentation/pages/M004Register.dart';
+import 'package:khoi_nghiep/features/khoinghiep/presentation/pages/M005Inside.dart';
+import 'package:khoi_nghiep/features/khoinghiep/presentation/pages/M006NewPosts.dart';
 import 'package:khoi_nghiep/route/routing_contsants.dart';
-import 'package:khoi_nghiep/screen/M002Login.dart';
-import 'package:khoi_nghiep/screen/M003ForgotPassword.dart';
-import 'package:khoi_nghiep/screen/M004Register.dart';
-import 'package:khoi_nghiep/screen/M005Inside.dart';
-import 'package:khoi_nghiep/screen/M006NewPosts.dart';
 
 Route<dynamic> generateRouteAllManagement(RouteSettings settings) {
   switch (settings.name) {

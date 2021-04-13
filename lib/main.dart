@@ -1,11 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:khoi_nghiep/screen/M00Introduce.dart';
-import 'package:khoi_nghiep/service/auth.dart';
-import 'package:khoi_nghiep/service/storage.dart';
+import 'package:khoi_nghiep/features/khoinghiep/domain/repositories/auth.dart';
+import 'package:khoi_nghiep/features/khoinghiep/domain/repositories/storage.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:splashscreen/splashscreen.dart';
+
+import 'features/khoinghiep/presentation/pages/M00Introduce.dart';
 
 
 void main() async {

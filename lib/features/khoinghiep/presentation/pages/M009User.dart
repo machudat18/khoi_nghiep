@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:khoi_nghiep/route/routing_contsants.dart';
-import 'package:khoi_nghiep/service/auth.dart';
-import 'package:khoi_nghiep/service/storage.dart';
-import 'package:khoi_nghiep/ultils/GetColors.dart';
-import 'package:khoi_nghiep/widget/CommonWidget.dart';
+import 'package:khoi_nghiep/features/khoinghiep/domain/repositories/auth.dart';
+import 'package:khoi_nghiep/features/khoinghiep/domain/repositories/storage.dart';
+import 'package:khoi_nghiep/core/util/GetColors.dart';
+import 'package:khoi_nghiep/features/khoinghiep/presentation/widgets/CommonWidget.dart';
 
 class UserLogged extends StatefulWidget {
   @override

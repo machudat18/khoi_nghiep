@@ -1,37 +1,23 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:khoi_nghiep/model/UserInformationRegister.dart';
-import 'package:khoi_nghiep/service/storage.dart';
+import 'package:khoi_nghiep/features/khoinghiep/data/models/user_information_register.dart';
 
-class AuthService {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  static final AuthService _singleton = AuthService._internal();
+abstract class AuthDataSource {
+  Future signInWithEmailAndPassword({final email, final password});
 
-  factory AuthService() {
-    return _singleton;
-  }
+  Future registerWithEmailAndPassword(
+      UserInformationRegister userInformationRegister);
 
-  AuthService._internal();
+  Future signOut();
 
-  Stream<User> getStreamUser() {
-    return _auth.authStateChanges();
-  }
+  getUserID();
+}
 
-  // sign in anon
-  Future signInAnon() async {
-    try {
-      UserCredential result = await _auth.signInAnonymously();
-      User user = result.user;
-      return user;
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }
-  }
+class AuthDataSourceImpl implements AuthDataSource {
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
-// sign in  with email and password
   Future signInWithEmailAndPassword({final email, final password}) async {
     try {
-      UserCredential result = await _auth.signInWithEmailAndPassword(
+      UserCredential result = await auth.signInWithEmailAndPassword(
           email: email, password: password);
       User user = result.user;
       return user;
@@ -56,7 +42,6 @@ class AuthService {
       User user = result.user;
       print(user.email);
       await user.updateProfile(displayName: userInformationRegister.name);
-      await StorageService().addUser(user: userInformationRegister,uid: user.uid);
       return user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -71,12 +56,10 @@ class AuthService {
     }
   }
 
-  FirebaseAuth get auth => _auth;
-
 // sign out
   Future signOut() async {
     try {
-      return await _auth.signOut();
+      return await auth.signOut();
     } catch (e) {
       print(e.toString());
       return null;
@@ -84,6 +67,6 @@ class AuthService {
   }
 
   getUserID() {
-    return _auth.currentUser.uid;
+    return auth.currentUser.uid;
   }
 }

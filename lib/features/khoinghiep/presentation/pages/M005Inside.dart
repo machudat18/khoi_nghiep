@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:khoi_nghiep/screen/M007Group.dart';
-import 'package:khoi_nghiep/screen/M008News.dart';
-import 'package:khoi_nghiep/service/auth.dart';
-import 'package:khoi_nghiep/ultils/GetColors.dart';
+import 'package:khoi_nghiep/features/khoinghiep/presentation/pages/M007Group.dart';
+import 'package:khoi_nghiep/features/khoinghiep/presentation/pages/M008News.dart';
+import 'package:khoi_nghiep/features/khoinghiep/domain/repositories/auth.dart';
+import 'package:khoi_nghiep/core/util/GetColors.dart';
 
 import 'M006NewFeed.dart';
 import 'M009User.dart';

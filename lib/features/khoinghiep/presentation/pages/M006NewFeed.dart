@@ -3,8 +3,8 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:khoi_nghiep/route/routing_contsants.dart';
-import 'package:khoi_nghiep/service/storage.dart';
-import 'package:khoi_nghiep/ultils/GetColors.dart';
+import 'package:khoi_nghiep/features/khoinghiep/domain/repositories/storage.dart';
+import 'package:khoi_nghiep/core/util/GetColors.dart';
 
 class NewFeed extends StatelessWidget {
   @override

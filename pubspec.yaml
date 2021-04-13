@@ -37,7 +37,7 @@ dependencies:
   pin_code_fields: ^6.1.0
   flutter_vector_icons: ^0.3.0
   font_awesome_flutter: ^8.11.0
-
+  equatable: ^2.0.0
   # Cái này là để tạo loading
   shimmer: ^1.1.2
   # The following adds the Cupertino Icons font to your application.

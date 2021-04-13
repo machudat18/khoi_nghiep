@@ -1,10 +1,10 @@
 import 'dart:core';
 
-import 'package:khoi_nghiep/model/UserData.dart';
+import 'package:khoi_nghiep/features/khoinghiep/data/models/user_data.dart';
 
 class UserInformation extends UserData {
   var _avatar, _backGround;
-  List<String> _following = new List<String>();
+  List<String> _following = [];
 
   UserInformation(
       {avatar,
@@ -24,21 +24,5 @@ class UserInformation extends UserData {
             userName: userName,
             password: password);
 
-  get backGround => _backGround;
 
-  set backGround(value) {
-    _backGround = value;
-  }
-
-  get avatar => _avatar;
-
-  set avatar(value) {
-    _avatar = value;
-  }
-
-  List<String> get following => _following;
-
-  set following(List<String> value) {
-    _following = value;
-  }
 }

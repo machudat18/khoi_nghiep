@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:khoi_nghiep/model/UserInformationRegister.dart';
-import 'package:khoi_nghiep/service/auth.dart';
-import 'package:khoi_nghiep/ultils/GetColors.dart';
-import 'package:khoi_nghiep/widget/CommonWidget.dart';
-import 'package:khoi_nghiep/widget/PageWidget.dart';
+import 'package:khoi_nghiep/features/khoinghiep/data/models/user_information_register.dart';
+import 'package:khoi_nghiep/features/khoinghiep/domain/repositories/auth.dart';
+import 'package:khoi_nghiep/core/util/GetColors.dart';
+import 'package:khoi_nghiep/features/khoinghiep/presentation/widgets/CommonWidget.dart';
+import 'package:khoi_nghiep/features/khoinghiep/presentation/widgets/PageWidget.dart';
 
 class Register extends StatefulWidget {
   @override

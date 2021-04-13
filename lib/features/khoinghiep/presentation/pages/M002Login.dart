@@ -3,9 +3,8 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:khoi_nghiep/route/routing_contsants.dart' as Routes;
-import 'package:khoi_nghiep/service/auth.dart';
-import 'package:khoi_nghiep/ultils/GetColors.dart';
-import 'package:khoi_nghiep/widget/CommonWidget.dart';
+import 'package:khoi_nghiep/core/util/GetColors.dart';
+import 'package:khoi_nghiep/features/khoinghiep/presentation/widgets/CommonWidget.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -14,7 +13,6 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   TextEditingController _controllerUserName, _controllerPassword;
-  final AuthService _authService = AuthService();
   String _username , _password;
   @override
   void initState() {

@@ -2,21 +2,24 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:khoi_nghiep/model/UserInformationRegister.dart';
-import 'package:khoi_nghiep/service/auth.dart';
+import 'package:khoi_nghiep/features/khoinghiep/data/models/user_information_register.dart';
 
-class StorageService {
-  FirebaseStorage _storage = FirebaseStorage.instance;
+abstract class StorageDataSource {
+  Future<void> addUser({UserInformationRegister user, String uid});
+
+  Future<void> uploadTopic(String uid, String content);
+
+  Stream<DocumentSnapshot> getUserData(final uid);
+
+  Future<String> uploadFile(final file);
+
+  Future<void> getAllPosts();
+}
+
+class StorageDataSourceImpl implements StorageDataSource {
   Reference _ref = FirebaseStorage.instance.ref();
   FirebaseFirestore _fireStore = FirebaseFirestore.instance;
   CollectionReference _users = FirebaseFirestore.instance.collection('Users');
-  static final StorageService _singleton = StorageService._internal();
-
-  factory StorageService() {
-    return _singleton;
-  }
-
-  StorageService._internal();
 
   Future<void> addUser({UserInformationRegister user, String uid}) {
     // Call the user's CollectionReference to add a new user
@@ -34,7 +37,7 @@ class StorageService {
 
   Future<void> uploadTopic(String uid, String content) {
     return _users
-        .doc(AuthService().getUserID())
+        .doc(uid)
         .collection('Post')
         .doc()
         .set({'content': content})
@@ -43,8 +46,8 @@ class StorageService {
     ;
   }
 
-  Stream<DocumentSnapshot> get userData {
-    return _users.doc('/${AuthService().auth.currentUser.uid}').snapshots();
+  Stream<DocumentSnapshot> getUserData(final uid) {
+    return _users.doc('$uid').snapshots();
   }
 
   Future<String> uploadFile(final file) async {
@@ -72,11 +75,15 @@ class StorageService {
     final ref = _fireStore.collection('Users');
     return ref.get().then((QuerySnapshot querySnapshot) => {
           querySnapshot.docs.forEach((doc) {
-            ref.doc(doc.id).collection('Post').get().then((QuerySnapshot querySnapshot) => {
-              querySnapshot.docs.forEach((doc) {
-                  print(doc.id);
-              })
-            });
+            ref
+                .doc(doc.id)
+                .collection('Post')
+                .get()
+                .then((QuerySnapshot querySnapshot) => {
+                      querySnapshot.docs.forEach((doc) {
+                        print(doc.id);
+                      })
+                    });
           })
         });
   }

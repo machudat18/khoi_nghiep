@@ -1,6 +1,6 @@
-import 'package:khoi_nghiep/model/UserData.dart';
+import 'package:khoi_nghiep/features/khoinghiep/data/models/user_data.dart' as user_information_register;
 
-class UserInformationRegister extends UserData {
+class UserInformationRegister extends user_information_register.UserData {
   String _password, _rePassword;
 
   UserInformationRegister(

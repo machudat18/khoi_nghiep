@@ -9,8 +9,8 @@ import 'package:flutter_quill/models/documents/document.dart';
 import 'package:flutter_quill/widgets/controller.dart';
 import 'package:flutter_quill/widgets/editor.dart';
 import 'package:flutter_quill/widgets/toolbar.dart';
-import 'package:khoi_nghiep/service/storage.dart';
-import 'package:khoi_nghiep/widget/CommonWidget.dart';
+import 'package:khoi_nghiep/features/khoinghiep/domain/repositories/storage.dart';
+import 'package:khoi_nghiep/features/khoinghiep/presentation/widgets/CommonWidget.dart';
 import 'package:quill_delta/quill_delta.dart';
 
 class M006NewPost extends StatefulWidget {

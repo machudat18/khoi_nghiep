@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:khoi_nghiep/features/khoinghiep/data/datasources/auth_data_source.dart';
 import 'package:khoi_nghiep/features/khoinghiep/data/datasources/storage_data_source.dart';
@@ -39,13 +40,13 @@ class FirebaseRepositoriesImpl extends FirebaseRepositories {
   }
 
   @override
-  Future signInWithEmailAndPassword({email, password}) {
+  Future signInWithEmailAndPassword({final email, final password}) {
     return authDataSource.signInWithEmailAndPassword(
         email: email, password: password);
   }
 
   @override
-  Future signOut() {
+  Future logOut() {
     return authDataSource.signOut();
   }
 
@@ -62,4 +63,7 @@ class FirebaseRepositoriesImpl extends FirebaseRepositories {
   @override
   Stream<DocumentSnapshot> get userData =>
       storageDataSource.getUserData(authDataSource.getUserID());
+
+  @override
+  Stream<User> get user => authDataSource.user;
 }

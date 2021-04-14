@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:khoi_nghiep/features/khoinghiep/data/models/user_information_register.dart';
 
 abstract class FirebaseRepositories {
@@ -7,7 +8,7 @@ abstract class FirebaseRepositories {
   Future registerWithEmailAndPassword(
       UserInformationRegister userInformationRegister);
 
-  Future signOut();
+  Future logOut();
 
   getUserID();
 
@@ -16,6 +17,7 @@ abstract class FirebaseRepositories {
   Future<void> uploadTopic(String uid, String content);
 
   Stream<DocumentSnapshot> get userData;
+  Stream<User> get user;
 
   Future<String> uploadFile(final file);
 

@@ -20,7 +20,7 @@ class StorageDataSourceImpl implements StorageDataSource {
   Reference _ref = FirebaseStorage.instance.ref();
   FirebaseFirestore _fireStore = FirebaseFirestore.instance;
   CollectionReference _users = FirebaseFirestore.instance.collection('Users');
-
+  @override
   Future<void> addUser({UserInformationRegister user, String uid}) {
     // Call the user's CollectionReference to add a new user
     return _users
@@ -34,7 +34,7 @@ class StorageDataSourceImpl implements StorageDataSource {
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));
   }
-
+  @override
   Future<void> uploadTopic(String uid, String content) {
     return _users
         .doc(uid)
@@ -45,11 +45,11 @@ class StorageDataSourceImpl implements StorageDataSource {
         .catchError((error) => print("Failed to add post: $error"));
     ;
   }
-
+  @override
   Stream<DocumentSnapshot> getUserData(final uid) {
     return _users.doc('$uid').snapshots();
   }
-
+  @override
   Future<String> uploadFile(final file) async {
     try {
       File f = file;
@@ -62,14 +62,14 @@ class StorageDataSourceImpl implements StorageDataSource {
       // e.g, e.code == 'canceled'
     }
   }
-
+  @override
   Future<String> downloadURL(final path) async {
     // Within your widgets:
     // Image.network(downloadURL);
     final url = await _ref.child(path).getDownloadURL();
     return url;
   }
-
+  @override
   Future<void> getAllPosts() {
     print('get all post');
     final ref = _fireStore.collection('Users');

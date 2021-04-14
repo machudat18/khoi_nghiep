@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:khoi_nghiep/route/routing_contsants.dart';
-import 'package:khoi_nghiep/features/khoinghiep/domain/repositories/auth.dart';
-import 'package:khoi_nghiep/features/khoinghiep/domain/repositories/storage.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khoi_nghiep/core/util/GetColors.dart';
+import 'package:khoi_nghiep/features/khoinghiep/presentation/bloc/auth/auth_bloc.dart';
+import 'package:khoi_nghiep/features/khoinghiep/presentation/bloc/auth/auth_event.dart';
 import 'package:khoi_nghiep/features/khoinghiep/presentation/widgets/CommonWidget.dart';
+import 'package:khoi_nghiep/route/routing_contsants.dart';
 
 class UserLogged extends StatefulWidget {
   @override
@@ -13,15 +14,13 @@ class UserLogged extends StatefulWidget {
 }
 
 class _UserLoggedState extends State<UserLogged> {
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
   }
 
-  void initDummyData() {
-  }
+  void initDummyData() {}
 
   @override
   Widget build(BuildContext context) {
@@ -31,18 +30,24 @@ class _UserLoggedState extends State<UserLogged> {
     const ELEVATION = 2.0;
 
     return StreamBuilder<DocumentSnapshot>(
-      stream: StorageService().userData,
+      //stream: StorageService().userData,
       builder: (context, snapshot) {
+        print(snapshot);
         if (snapshot.hasError) {
           return Text('Something went wrong');
         }
 
-        if (snapshot.connectionState == ConnectionState.active) {
-          print(snapshot.data.data());
-          final Map data = snapshot.data.data();
-          String followingCount = data['following'] == null
-              ? '0'
-              : data['following'].length.toString();
+        if (snapshot.connectionState == ConnectionState.active ||
+            snapshot.connectionState == ConnectionState.none) {
+          print(snapshot.data?.data());
+          // final Map data = snapshot.data?.data();
+          // String followingCount = data['following'] == null
+          //     ? '0'
+          //     : data['following'].length.toString();
+          final Map data = {
+            'name': 'dat',
+          };
+          String followingCount = '0';
           return Stack(
             children: [
               SingleChildScrollView(
@@ -237,9 +242,11 @@ class _UserLoggedState extends State<UserLogged> {
                                       //side: BorderSide(width: 0.1),
                                       borderRadius: BorderRadius.circular(5.0)),
                                   child: InkWell(
-                                    onTap: () async {
+                                    onTap: () {
                                       //TODO đăng xuất
-                                      await AuthService().signOut();
+                                      BlocProvider.of<AuthBloc>(context)
+                                          .add(SignOut());
+                                      //await AuthService().logOut();
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.all(16.0),
@@ -443,27 +450,28 @@ class _UserUnLoggedState extends State<UserUnLogged> {
                             margin: const EdgeInsets.only(top: 36, bottom: 16),
                             child: InkWell(
                               borderRadius:
-                              BorderRadius.all(Radius.circular(50)),
+                                  BorderRadius.all(Radius.circular(50)),
                               onTap: () {
-                                Navigator.of(context)
-                                    .pushReplacementNamed(LoginRoute);
+                                // Navigator.of(context)
+                                //     .pushReplacementNamed(LoginRoute);
+                                BlocProvider.of<AuthBloc>(context).add(LoginEvent(email: '22@gmail.com', password: '123456'));
                               },
                               child: Ink(
                                 padding: const EdgeInsets.all(20),
                                 decoration: BoxDecoration(
                                   color: HexColor("#0062DD"),
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
+                                      BorderRadius.all(Radius.circular(50)),
                                 ),
                                 child: Center(
                                     child: Text(
-                                      'Đăng nhập / Đăng ký',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: 'Montserrat'),
-                                    )),
+                                  'Đăng nhập / Đăng ký',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'Montserrat'),
+                                )),
                               ),
                             ),
                           ),
@@ -477,7 +485,7 @@ class _UserUnLoggedState extends State<UserUnLogged> {
                   Material(
                     elevation: ELEVATION,
                     shape: RoundedRectangleBorder(
-                      //side: BorderSide(width: 0.1),
+                        //side: BorderSide(width: 0.1),
                         borderRadius: BorderRadius.circular(5.0)),
                     child: UserButton(
                       text: 'Cài đặt',

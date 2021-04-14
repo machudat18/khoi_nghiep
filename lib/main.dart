@@ -1,25 +1,16 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:khoi_nghiep/features/khoinghiep/domain/repositories/auth.dart';
-import 'package:khoi_nghiep/features/khoinghiep/domain/repositories/storage.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 import 'features/khoinghiep/presentation/pages/M00Introduce.dart';
-
+import 'injection_container.dart' as kiwi;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MultiProvider(providers: [
-    StreamProvider(
-      create: (context) => AuthService().getStreamUser(),
-    ),
-    StreamProvider(
-      create: (context) => StorageService().userData,
-    )
-  ], child: MyApp()));
+  await kiwi.init();
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {

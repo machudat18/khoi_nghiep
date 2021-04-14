@@ -8,6 +8,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.5.0"
+  bloc:
+    dependency: transitive
+    description:
+      name: bloc
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "7.0.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -181,6 +188,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_bloc:
+    dependency: "direct main"
+    description:
+      name: flutter_bloc
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "7.0.0"
   flutter_colorpicker:
     dependency: transitive
     description:
@@ -296,6 +310,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3"
+  kiwi:
+    dependency: "direct main"
+    description:
+      name: kiwi
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.1"
   matcher:
     dependency: transitive
     description:
@@ -316,7 +337,7 @@ packages:
       name: nested
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.4"
+    version: "1.0.0"
   notus:
     dependency: "direct main"
     description:
@@ -416,12 +437,12 @@ packages:
     source: hosted
     version: "4.2.1"
   provider:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.3.3"
+    version: "5.0.0"
   quill_delta:
     dependency: transitive
     description:

@@ -9,7 +9,6 @@ import 'package:flutter_quill/models/documents/document.dart';
 import 'package:flutter_quill/widgets/controller.dart';
 import 'package:flutter_quill/widgets/editor.dart';
 import 'package:flutter_quill/widgets/toolbar.dart';
-import 'package:khoi_nghiep/features/khoinghiep/domain/repositories/storage.dart';
 import 'package:khoi_nghiep/features/khoinghiep/presentation/widgets/CommonWidget.dart';
 import 'package:quill_delta/quill_delta.dart';
 
@@ -79,7 +78,7 @@ class _M006NewPostState extends State<M006NewPost> {
 
   void _saveDocument(BuildContext context) {
     String contents = jsonEncode(_controller.document.toDelta());
-    StorageService().uploadTopic('test', contents);
+   // StorageService().uploadTopic('test', contents);
     // And show a snack bar on success.
     file.writeAsString(contents).then((_) {
       log('Lưu thành công');
@@ -99,7 +98,8 @@ class _M006NewPostState extends State<M006NewPost> {
   Future<String> _uploadImageCallBack(final file) async {
     // call upload file API and return file's absolute url
     if (file == null) return null;
-    final path = await StorageService().uploadFile(file);
+    // final path = await StorageService().uploadFile(file);
+    final path = null;
     return path;
   }
 }

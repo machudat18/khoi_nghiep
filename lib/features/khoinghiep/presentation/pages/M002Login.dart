@@ -2,9 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:khoi_nghiep/route/routing_contsants.dart' as Routes;
 import 'package:khoi_nghiep/core/util/GetColors.dart';
-import 'package:khoi_nghiep/features/khoinghiep/presentation/widgets/CommonWidget.dart';
+import 'package:khoi_nghiep/features/khoinghiep/domain/usecases/login_usecase.dart';
+import 'package:khoi_nghiep/route/routing_contsants.dart' as Routes;
+
+import '../../../../injection_container.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -13,7 +15,8 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   TextEditingController _controllerUserName, _controllerPassword;
-  String _username , _password;
+  String _username, _password;
+
   @override
   void initState() {
     super.initState();
@@ -94,18 +97,19 @@ class _LoginState extends State<Login> {
                 child: InkWell(
                   borderRadius: BorderRadius.all(Radius.circular(5)),
                   onTap: () async {
-                    if(_username == null|| _password == null){
+                    if (_username == null || _password == null) {
                       return;
                     }
-                    dynamic result =
-                        await _authService.signInWithEmailAndPassword(
-                            email: _username,password: _password);
-                    if (result == null) {
-                      print('Đăng nhập thất bại');
-                    } else {
-                      Navigator.pushReplacementNamed(
-                          context, Routes.InsideRouteManagement);
-                    }
+                    kiwiContainer
+                        .resolve<LogInUseCase>()
+                        .call(LoginParam(_username, _password));
+                    //BlocProvider.of<AuthBloc>(context).add(LoginEvent(email: _username, password: _password));
+                    // if (result == null) {
+                    //   print('Đăng nhập thất bại');
+                    // } else {
+                    //   Navigator.pushReplacementNamed(
+                    //       context, Routes.InsideRouteManagement);
+                    // }
                   },
                   child: Ink(
                     padding: const EdgeInsets.all(20),
@@ -156,8 +160,7 @@ class _LoginState extends State<Login> {
                         child: Container(
                           margin: const EdgeInsets.only(top: 20),
                           child: InkWell(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(5)),
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
                             onTap: () {},
                             child: Ink(
                               padding: const EdgeInsets.all(20),
@@ -184,8 +187,8 @@ class _LoginState extends State<Login> {
                                   Container(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(5)),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5)),
                                     ),
                                     child: new Image.asset(
                                       'assets/facebook_icon.png',
@@ -207,8 +210,7 @@ class _LoginState extends State<Login> {
                         child: Container(
                           margin: const EdgeInsets.only(top: 20),
                           child: InkWell(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(5)),
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
                             onTap: () async {},
                             child: Ink(
                               padding: const EdgeInsets.all(20),
@@ -234,8 +236,8 @@ class _LoginState extends State<Login> {
                                   ),
                                   Container(
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(5)),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5)),
                                     ),
                                     child: new Image.asset(
                                       'assets/google_icon.png',

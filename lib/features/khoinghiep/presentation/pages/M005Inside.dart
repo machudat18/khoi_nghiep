@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:khoi_nghiep/core/util/GetColors.dart';
+import 'package:khoi_nghiep/features/khoinghiep/presentation/bloc/auth/auth_bloc.dart';
+import 'package:khoi_nghiep/features/khoinghiep/presentation/bloc/auth/auth_state.dart';
 import 'package:khoi_nghiep/features/khoinghiep/presentation/pages/M007Group.dart';
 import 'package:khoi_nghiep/features/khoinghiep/presentation/pages/M008News.dart';
-import 'package:khoi_nghiep/features/khoinghiep/domain/repositories/auth.dart';
-import 'package:khoi_nghiep/core/util/GetColors.dart';
+import 'package:khoi_nghiep/injection_container.dart' as kiwi;
 
 import 'M006NewFeed.dart';
 import 'M009User.dart';
@@ -28,30 +31,32 @@ class _InsideManagementState extends State<InsideManagement> {
   Widget build(BuildContext context) {
     print('build');
     return Scaffold(
-        body: StreamBuilder(
-          stream: AuthService().getStreamUser(),
-          builder: (context, snapshot) {
-            print(snapshot);
-            if (snapshot.data != null) {
-              listWidgetInside = [
-                NewFeed(),
-                Group(),
-                News(),
-                UserLogged(),
-              ];
-            } else {
-              listWidgetInside = [
-                NewFeed(),
-                Group(),
-                News(),
-                UserUnLogged(),
-              ];
-            }
-            return IndexedStack(
-              index: _currentIndex,
-              children: listWidgetInside,
-            );
-          },
+        body: BlocProvider<AuthBloc>(
+          create: (_) => kiwi.kiwiContainer.resolve<AuthBloc>(),
+          child: BlocBuilder<AuthBloc, AuthState>(
+            builder: (context, state) {
+              print(state);
+              if (state is Authenticated) {
+                listWidgetInside = [
+                  NewFeed(),
+                  Group(),
+                  News(),
+                  UserLogged(),
+                ];
+              } else {
+                listWidgetInside = [
+                  NewFeed(),
+                  Group(),
+                  News(),
+                  UserUnLogged(),
+                ];
+              }
+              return IndexedStack(
+                index: _currentIndex,
+                children: listWidgetInside,
+              );
+            },
+          ),
         ),
         bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,

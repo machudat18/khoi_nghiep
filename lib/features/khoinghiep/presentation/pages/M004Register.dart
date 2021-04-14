@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:khoi_nghiep/features/khoinghiep/data/models/user_information_register.dart';
-import 'package:khoi_nghiep/features/khoinghiep/domain/repositories/auth.dart';
 import 'package:khoi_nghiep/core/util/GetColors.dart';
 import 'package:khoi_nghiep/features/khoinghiep/presentation/widgets/CommonWidget.dart';
 import 'package:khoi_nghiep/features/khoinghiep/presentation/widgets/PageWidget.dart';
@@ -17,7 +16,6 @@ class _RegisterState extends State<Register> {
   List<Widget> listWidgetSignUp;
   UserInformationRegister _userInformation = new UserInformationRegister();
   var textButton = 'Tiếp';
-  final AuthService _authService = AuthService();
 
   void nextPage() {
     _pageController.animateToPage(_pageController.page.toInt() + 1,
@@ -124,13 +122,13 @@ class _RegisterState extends State<Register> {
                       borderRadius: BorderRadius.all(Radius.circular(5)),
                       onTap: () async {
                         if (isLastPage()) {
-                          User result = await _authService
-                              .registerWithEmailAndPassword(_userInformation);
-                          if (result != null) {
-                            popCurrent();
-                          } else {
-                            print('Đăng ký thất bại');
-                          }
+                          // User result = await _authService
+                          //     .registerWithEmailAndPassword(_userInformation);
+                          // if (result != null) {
+                          //   popCurrent();
+                          // } else {
+                          //   print('Đăng ký thất bại');
+                          // }
                           return;
                         }
                         nextPage();

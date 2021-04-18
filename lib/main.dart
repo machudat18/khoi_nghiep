@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 import 'features/khoinghiep/presentation/pages/M00Introduce.dart';
-import 'injection_container.dart' as kiwi;
+import 'common/injector/injection_container.dart' as kiwi;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:khoi_nghiep/core/util/GetColors.dart';
+import 'package:khoi_nghiep/common/util/GetColors.dart';
 import 'package:khoi_nghiep/features/khoinghiep/presentation/pages/AllRouteManagement.dart';
 import 'package:khoi_nghiep/features/khoinghiep/presentation/widgets/PageWidget.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';

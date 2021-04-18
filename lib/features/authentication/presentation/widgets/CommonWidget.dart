@@ -1,7 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:khoi_nghiep/core/util/GetColors.dart';
+import 'package:khoi_nghiep/common/util/GetColors.dart';
 
 class TextInputWidget extends StatelessWidget {
   final TextEditingController controller;

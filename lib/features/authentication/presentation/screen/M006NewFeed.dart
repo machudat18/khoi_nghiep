@@ -1,14 +1,12 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:khoi_nghiep/common/util/GetColors.dart';
 import 'package:khoi_nghiep/route/routing_contsants.dart';
-import 'package:khoi_nghiep/core/util/GetColors.dart';
 
 class NewFeed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-   // StorageService().getAllPosts();
+    // StorageService().getAllPosts();
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () {
@@ -35,7 +33,6 @@ class NewFeed extends StatelessWidget {
         body: ListView(
           children: [
             NewTopicWidget(),
-
           ],
         ),
       ),

@@ -1,4 +1,5 @@
-import 'package:khoi_nghiep/core/usecases/usecase.dart';
+
+import 'package:khoi_nghiep/common/usecases/usecase.dart';
 import 'package:khoi_nghiep/features/khoinghiep/data/models/user_data.dart';
 import 'package:khoi_nghiep/features/khoinghiep/domain/repositories/firebase_repositories.dart';
 

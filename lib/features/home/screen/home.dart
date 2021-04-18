@@ -1,22 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:khoi_nghiep/core/util/GetColors.dart';
+import 'package:khoi_nghiep/common/util/GetColors.dart';
 import 'package:khoi_nghiep/features/khoinghiep/presentation/bloc/auth/auth_bloc.dart';
 import 'package:khoi_nghiep/features/khoinghiep/presentation/bloc/auth/auth_state.dart';
 import 'package:khoi_nghiep/features/khoinghiep/presentation/pages/M007Group.dart';
 import 'package:khoi_nghiep/features/khoinghiep/presentation/pages/M008News.dart';
-import 'package:khoi_nghiep/injection_container.dart' as kiwi;
+import 'package:khoi_nghiep/common/injector/injection_container.dart' as kiwi;
 
 import 'M006NewFeed.dart';
 import 'M009User.dart';
 
-class InsideManagement extends StatefulWidget {
+class Home extends StatefulWidget {
   @override
-  _InsideManagementState createState() => _InsideManagementState();
+  _HomeState createState() => _HomeState();
 }
 
-class _InsideManagementState extends State<InsideManagement> {
+class _HomeState extends State<Home> {
   var _currentIndex = 3;
   List<Widget> listWidgetInside;
   bool isFirstTime = true;

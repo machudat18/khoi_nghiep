@@ -2,11 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:khoi_nghiep/core/util/GetColors.dart';
+import 'package:khoi_nghiep/common/util/GetColors.dart';
 import 'package:khoi_nghiep/features/khoinghiep/domain/usecases/login_usecase.dart';
 import 'package:khoi_nghiep/route/routing_contsants.dart' as Routes;
 
-import '../../../../injection_container.dart';
+import '../../../../common/injector/injection_container.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -100,16 +100,9 @@ class _LoginState extends State<Login> {
                     if (_username == null || _password == null) {
                       return;
                     }
-                    kiwiContainer
+                    injector
                         .resolve<LogInUseCase>()
                         .call(LoginParam(_username, _password));
-                    //BlocProvider.of<AuthBloc>(context).add(LoginEvent(email: _username, password: _password));
-                    // if (result == null) {
-                    //   print('Đăng nhập thất bại');
-                    // } else {
-                    //   Navigator.pushReplacementNamed(
-                    //       context, Routes.InsideRouteManagement);
-                    // }
                   },
                   child: Ink(
                     padding: const EdgeInsets.all(20),

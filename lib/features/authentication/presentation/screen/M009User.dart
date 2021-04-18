@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:khoi_nghiep/core/util/GetColors.dart';
+import 'package:khoi_nghiep/common/util/GetColors.dart';
 import 'package:khoi_nghiep/features/khoinghiep/presentation/bloc/auth/auth_bloc.dart';
 import 'package:khoi_nghiep/features/khoinghiep/presentation/bloc/auth/auth_event.dart';
 import 'package:khoi_nghiep/features/khoinghiep/presentation/widgets/CommonWidget.dart';

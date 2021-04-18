@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:khoi_nghiep/core/util/GetColors.dart';
+import 'package:khoi_nghiep/common/util/GetColors.dart';
 import 'package:khoi_nghiep/features/khoinghiep/presentation/widgets/CommonWidget.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 

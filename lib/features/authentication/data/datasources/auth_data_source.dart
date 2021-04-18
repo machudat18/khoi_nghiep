@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:khoi_nghiep/core/error/exceptions.dart';
+import 'package:khoi_nghiep/common/error/exceptions.dart';
 import 'package:khoi_nghiep/features/khoinghiep/data/models/user_information_register.dart';
 
 abstract class AuthDataSource {
